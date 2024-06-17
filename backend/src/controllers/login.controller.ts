@@ -1,8 +1,7 @@
 import * as express from 'express';
-import * as jwt from 'jsonwebtoken';
 import { User, comparePassword, getUserFromUsername } from '../models/user.model';
 import { client } from '../redis_client';
-import { JWT_SECRET } from '../config';
+import { createJWT } from '../models/jwt.model';
 
 export async function loginController(req: express.Request, res: express.Response) {
     const { username, password } = req.body;
@@ -19,7 +18,7 @@ export async function loginController(req: express.Request, res: express.Respons
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        const token = jwt.sign({ id: user.id, username: user.username}, JWT_SECRET, { expiresIn: '1H' });
+        const token = createJWT(user);
         return res.json({
             message: 'Login successful', 
             user: {

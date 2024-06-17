@@ -6,6 +6,13 @@ export interface User {
     id: string;
     username: string;
     password: string;
+    avatar?: string | null;
+}
+
+export interface UserSerializer {
+    id: string;
+    username: string;
+    avatar?: string | null;
 }
 
 export async function hashPassword(password: string): Promise<string> {

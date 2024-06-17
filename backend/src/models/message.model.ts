@@ -1,13 +1,9 @@
 import { client } from "../redis_client";
-
-export interface UserMessage {
-    id: string;
-    username: string;
-}
+import { UserSerializer } from "./user.model";
 
 export interface Message {
     id: string;
-    user: UserMessage;
+    user: UserSerializer;
     content: string;
     date: Date;
 }
@@ -20,5 +16,6 @@ export async function getMessages(): Promise<Array<Message>> {
         const message: Message = JSON.parse(value);
         messages.push(message);
     });
+    messages.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     return messages;
 }

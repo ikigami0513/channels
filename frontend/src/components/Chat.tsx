@@ -4,6 +4,7 @@ import { PaperAirplaneIcon } from '@heroicons/react/24/solid';
 import io, { Socket } from 'socket.io-client';
 import { format } from 'date-fns';
 import { User } from '../interfaces';
+import { Cog8ToothIcon, MicrophoneIcon, SpeakerWaveIcon } from '@heroicons/react/24/solid';
 
 let socket: Socket | null = null;
 
@@ -70,32 +71,58 @@ const Chat: React.FC<LoginProps> = ({ user }) => {
     };
 
     return (
-        <div className='flex flex-col h-screen'>
-            <div className='flex-grow overflow-y-auto p-4'>
-                {messages.map((message) => (
-                    <div key={message.id} className='p-2 bg-gray-700 rounded mb-2 text-white'>
-                        <div>
-                            <span className='text-xl'>{message.user.username}</span>
-                            <span className='text-xs text-gray-300 pl-2'>{format(new Date(message.date), 'dd-MM-yyyy HH:mm:ss')}</span>
-                        </div>
-                        <div>{message.content}</div>
-                    </div>
-                ))}
-                <div ref={messagesEndRef} />
-            </div>
+        <div className='flex'>
+            <div className='flex flex-col justify-end w-1/20 bg-gray-950'>
 
-            <form onSubmit={handleSubmitMessage} className='p-4 bg-gray-900 flex items-center'>
-                <input
-                    type='text'
-                    value={currentMessage}
-                    onChange={handleInputChange}
-                    className='w-full p-2 rounded bg-gray-800 text-white'
-                    placeholder='Envoyer un message...'
-                />
-                <button type='submit'>
-                    <PaperAirplaneIcon className='h-8 text-white ml-4' />
-                </button>
-            </form>
+            </div>
+            <div className='flex flex-col h-screen w-4/20 bg-gray-900'>
+                <div className='h-18/20'></div>
+                <div className='text-white bg-gray-950 h-2/20 flex items-center justify-between px-1'>
+                    <div className='flex items-center space-x-4'>
+                        <img src="https://via.placeholder.com/150" alt='default_picture' className='rounded-full h-12 w-12'/>
+                        <span>{user?.username}</span>
+                    </div>
+                    <div className='flex justify-between items-center'>
+                        <MicrophoneIcon className='h-6 w-6 m-2' />
+                        <SpeakerWaveIcon className='h-6 w-6 m-2' />
+                        <Cog8ToothIcon className='h-6 w-6 m-2' />
+                    </div>
+                </div>
+            </div>
+            <div className='flex flex-col h-screen w-15/20'>
+                <div className='flex-grow overflow-y-auto p-4'>
+                    {messages.map((message) => (
+                        <div key={message.id} className='p-2 rounded mb-2 text-white'>
+                            <div className='flex space-x-4'>
+                                <div>
+                                    <img src="https://via.placeholder.com/150" alt='default_picture' className='rounded-full h-12 w-12'/> 
+                                </div>
+                                <div>
+                                    <div>
+                                        <span className='text-xl'>{message.user.username}</span>
+                                        <span className='text-xs text-gray-300 pl-2'>{format(new Date(message.date), 'dd-MM-yyyy HH:mm:ss')}</span>
+                                    </div>
+                                    <div>{message.content}</div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                    <div ref={messagesEndRef} />
+                </div>
+
+                <form onSubmit={handleSubmitMessage} className='p-4 bg-gray-900 flex items-center'>
+                    <input
+                        type='text'
+                        value={currentMessage}
+                        onChange={handleInputChange}
+                        className='w-full p-2 rounded bg-gray-800 text-white'
+                        placeholder='Envoyer un message...'
+                    />
+                    <button type='submit'>
+                        <PaperAirplaneIcon className='h-8 text-white ml-4' />
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }

@@ -3,8 +3,7 @@ import { addUser, hashPassword } from '../models/user.model';
 import { client } from '../redis_client';
 import { v4 as uuidv4 } from 'uuid';
 import { User } from '../models/user.model';
-import * as jwt from "jsonwebtoken";
-import { JWT_SECRET } from '../config';
+import { createJWT } from '../models/jwt.model';
 
 export async function registerController(req: express.Request, res: express.Response) {
     const { username, password } = req.body;
@@ -20,7 +19,7 @@ export async function registerController(req: express.Request, res: express.Resp
         password: await hashPassword(password)
     };
     await addUser(user);
-    const token = jwt.sign({ id: user.id, username: user.username}, JWT_SECRET, { expiresIn: '1H' });
+    const token = createJWT(user);
     return res.json({
         message: 'Register successful', 
         user: {
