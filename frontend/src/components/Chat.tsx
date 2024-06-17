@@ -72,12 +72,12 @@ const Chat: React.FC<LoginProps> = ({ user }) => {
 
     return (
         <div className='flex'>
-            <div className='flex flex-col justify-end w-1/20 bg-gray-950'>
+            <div className='flex flex-col justify-end w-1/20 bg-slate-800'>
 
             </div>
-            <div className='flex flex-col h-screen w-4/20 bg-gray-900'>
-                <div className='h-18/20'></div>
-                <div className='text-white bg-gray-950 h-2/20 flex items-center justify-between px-1'>
+            <div className='flex flex-col h-screen w-3/20 bg-slate-900'>
+                <div className='h-19/20'></div>
+                <div className='text-white bg-slate-950 h-1/20 flex items-center justify-between px-1'>
                     <div className='flex items-center space-x-4'>
                         <img src="https://via.placeholder.com/150" alt='default_picture' className='rounded-full h-12 w-12'/>
                         <span>{user?.username}</span>
@@ -89,7 +89,8 @@ const Chat: React.FC<LoginProps> = ({ user }) => {
                     </div>
                 </div>
             </div>
-            <div className='flex flex-col h-screen w-15/20'>
+            <div className='flex flex-col h-screen w-13/20'>
+                <div className='p-4 text-white text-lg'>Channel Name</div>
                 <div className='flex-grow overflow-y-auto p-4'>
                     {messages.map((message) => (
                         <div key={message.id} className='p-2 rounded mb-2 text-white'>
@@ -110,19 +111,17 @@ const Chat: React.FC<LoginProps> = ({ user }) => {
                     <div ref={messagesEndRef} />
                 </div>
 
-                <form onSubmit={handleSubmitMessage} className='p-4 bg-gray-900 flex items-center'>
+                <form onSubmit={handleSubmitMessage} className='p-4 flex items-center'>
                     <input
                         type='text'
                         value={currentMessage}
                         onChange={handleInputChange}
-                        className='w-full p-2 rounded bg-gray-800 text-white'
+                        className='w-full p-4 rounded bg-gray-900 text-white'
                         placeholder='Envoyer un message...'
                     />
-                    <button type='submit'>
-                        <PaperAirplaneIcon className='h-8 text-white ml-4' />
-                    </button>
                 </form>
             </div>
+            <div className='w-3/20 bg-slate-900'></div>
         </div>
     );
 }

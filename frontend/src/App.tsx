@@ -9,7 +9,7 @@ function App() {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        document.body.classList.add("bg-gray-800");
+        document.body.classList.add("bg-gray-950");
     }, []);
 
     return (
